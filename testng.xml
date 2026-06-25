@@ -10,5 +10,5 @@
         <classes>
             <class name="userTest"/>
         </classes>
-    </test>
+    </test>userTest
 </suite>
