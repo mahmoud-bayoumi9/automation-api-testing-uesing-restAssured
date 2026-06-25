@@ -8,12 +8,15 @@ import automationExerciseProject.models.loginUser;
 import automationExerciseProject.models.user;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.qameta.allure.restassured.AllureRestAssured; // تم إضافة الامبورت الخاص بالـ Allure
 
 import static io.restassured.RestAssured.given;
 
 public class apiCalls {
+    
     public static Response getAllProducts() {
         return given()
+                .filter(new AllureRestAssured()) // تفعيل لقط تفاصيل الـ Execution
                 .baseUri(urls.baseUrl)
                 .contentType(ContentType.JSON)
                 .when().
@@ -24,6 +27,7 @@ public class apiCalls {
 
     public static Response addProduct(Product product) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl)
                 .contentType(ContentType.JSON).body(product)
                 .when().
@@ -34,6 +38,7 @@ public class apiCalls {
 
     public static Response getAllBrands() {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl)
                 .contentType(ContentType.JSON)
                 .when().
@@ -44,6 +49,7 @@ public class apiCalls {
 
     public static Response addBrand(brand brand) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl)
                 .contentType(ContentType.JSON).body(brand)
                 .when().
@@ -54,6 +60,7 @@ public class apiCalls {
 
     public static Response searchProduct(String searchKeyword) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).formParam("search_product", searchKeyword)
                 .contentType("application/x-www-form-urlencoded")
                 .when().
@@ -64,6 +71,7 @@ public class apiCalls {
 
     public static Response searchWithoutSearchProduct() {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl)
                 .contentType(ContentType.JSON)
                 .when().
@@ -74,6 +82,7 @@ public class apiCalls {
 
     public static Response userRegister(user user) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
                 .formParam("name", user.getName())
                 .formParam("email", user.getEmail())
@@ -100,6 +109,7 @@ public class apiCalls {
 
     public static Response userRegisterWithOutAddress1(user user) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
                 .formParam("name", user.getName())
                 .formParam("email", user.getEmail())
@@ -125,10 +135,10 @@ public class apiCalls {
 
     public static Response userRegisterWithOutPassword(user user) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
                 .formParam("name", user.getName())
                 .formParam("email", user.getEmail())
-
                 .formParam("title", user.getTitle())
                 .formParam("birth_date", user.getBirthDate())
                 .formParam("birth_month", user.getBirthMonth())
@@ -151,6 +161,7 @@ public class apiCalls {
 
     public static Response userRegisterWithArabicCharactersInPassword(user user) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
                 .formParam("name", user.getName())
                 .formParam("email", user.getEmail())
@@ -177,6 +188,7 @@ public class apiCalls {
 
     public static Response userRegisterWithOutFirtName(user user) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
                 .formParam("name", user.getName())
                 .formParam("email", user.getEmail())
@@ -202,6 +214,7 @@ public class apiCalls {
 
     public static Response userRegisterWithoutLastName(user user) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
                 .formParam("name", user.getName())
                 .formParam("email", user.getEmail())
@@ -227,6 +240,7 @@ public class apiCalls {
 
     public static Response mobileNumberWithSpecialCharacters(user user) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
                 .formParam("name", user.getName())
                 .formParam("email", user.getEmail())
@@ -254,6 +268,7 @@ public class apiCalls {
     public static Response loginWithValidData() {
         loginUser user = genaretedUser.getLoginUser();
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
                 .formParam("email", user.getEmail())
                 .formParam("password", user.getPassword())
@@ -266,6 +281,7 @@ public class apiCalls {
     public static Response loginWithoutEmail() {
         loginUser user = genaretedUser.getLoginUser();
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
                 .formParam("password", user.getPassword())
                 .when().
@@ -277,8 +293,9 @@ public class apiCalls {
     public static Response loginWithoutPassword() {
         loginUser user = genaretedUser.getLoginUser();
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
-                .formParam("email",user.getEmail())
+                .formParam("email", user.getEmail())
                 .when().
                 post(urls.login)
                 .then()
@@ -288,8 +305,9 @@ public class apiCalls {
     public static Response loginWithRegisterEmailAndIncorrectPassword() {
         loginUser user = genaretedUser.getLoginUser();
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
-               .formParam("email", user.getEmail())
+                .formParam("email", user.getEmail())
                 .formParam("password", "45df5433@ddf45")
                 .when().
                 post(urls.login)
@@ -299,6 +317,7 @@ public class apiCalls {
 
     public static Response userShouldAbleToGetAccountDetailsByemail(loginUser user) {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
                 .formParam("email", user.getEmail())
                 .when().
@@ -308,38 +327,7 @@ public class apiCalls {
     }
 
     public static Response deleteUser(loginUser user) {
-
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
-                .formParam("email", user.getEmail())
-                .formParam("password", user.getPassword())
-                .when().
-                delete(urls.deleteUser)
-                .then()
-                .log().all().extract().response();
-    }
-    public  static Response updateUser(user user){
-        return given()
-                .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
-                .formParam("name", user.getName())
-                .formParam("email", user.getEmail())
-                .formParam("password", user.getPassword())
-                .formParam("title", user.getTitle())
-                .formParam("birth_date", user.getBirthDate())
-                .formParam("birth_month", user.getBirthMonth())
-                .formParam("birth_year", user.getBirthYear())
-                .formParam("firstname", user.getFirstname())
-                .formParam("lastname", user.getLastname())
-                .formParam("company", user.getCompany())
-                .formParam("address2", user.getAddress2())
-                .formParam("country", user.getCountry())
-                .formParam("zipcode", user.getZipcode())
-                .formParam("state", user.getState())
-                .formParam("city", user.getCity())
-                .formParam("mobile_number", user.getMobileNumber())
-                .when().
-                put(urls.updateAccount)
-                .then()
-                .log().all().extract().response();
-    }
-}
+                .formParam("email", user
