@@ -128,7 +128,7 @@ public class apiCalls {
                 .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
                 .formParam("name", user.getName())
                 .formParam("email", user.getEmail())
-                .formParam("password", "")
+
                 .formParam("title", user.getTitle())
                 .formParam("birth_date", user.getBirthDate())
                 .formParam("birth_month", user.getBirthMonth())

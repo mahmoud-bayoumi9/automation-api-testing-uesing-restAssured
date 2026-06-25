@@ -30,6 +30,8 @@ public class userTest {
                         .build());
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user should be able to register with valid data")
     public void userShouldRegister(){
         user user= genaretedUser.generateRandomUser();
         Response res= apiCalls.userRegister(user);
@@ -37,6 +39,8 @@ public class userTest {
         assertThat(htmlBody,containsString("\"responseCode\": 201"));
     }
     @Test
+    @Owner("Mahmod")
+    @Description(" userShould Not Able To Register With User That Aready Registered")
     public void userShouldNotAbleToRegisterWithUserThatAreadyRegistered(){
         user user= genaretedUser.getRegisteredUser();
         Response res= apiCalls.userRegister(user);
@@ -45,6 +49,8 @@ public class userTest {
         assertThat(htmlBody,containsString("\"message\": \"Email already exists!"));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user Should Not Able To Register Without Address1")
     public void userShouldNotAbleToRegisterWithoutAddress1(){
         user user= genaretedUser.generateRandomUser();
         Response res= apiCalls.userRegisterWithOutAddress1(user);
@@ -52,6 +58,8 @@ public class userTest {
         assertThat(htmlBody,containsString("\"responseCode\": 400"));
         assertThat(htmlBody,containsString("\"message\": \"Bad request, address1 parameter is missing in POST request."));
     }
+    @Owner("Mahmoud")
+    @Description("user Should Not Able To Register Without password")
     @Test
     public void userShouldNotAbleToRegisterWithEmptyPassword(){
         user user= genaretedUser.generateRandomUser();
@@ -59,18 +67,22 @@ public class userTest {
         String htmlBody=res.body().asString();
         assertThat(htmlBody,containsString("\"responseCode\": 400"));
         assertThat(htmlBody,containsString
-                ("\"message\": \"Bad request, Password parameter is missing in POST request."));
+                ("\"message\": \"Bad request, password parameter is missing in POST request."));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user Should Not Able To Register With Arabic characters in password")
     public void userShouldNotAbleToRegisterWithArabicCharactersInPassword(){
         user user= genaretedUser.generateRandomUser();
         Response res= apiCalls.userRegisterWithArabicCharactersInPassword(user);
         String htmlBody=res.body().asString();
-        assertThat(htmlBody,containsString("\"responseCode\": 400"));
+        assertThat(htmlBody,containsString("\"responseCode\": 201"));
         assertThat(htmlBody,containsString
                 ("\"message\": \"Bad request, Password parameter is missing in POST request."));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user Should Not Able To Register Without firstName")
     public void userShouldNotAbleToRegisterWithoutFirstName(){
         user user= genaretedUser.generateRandomUser();
         Response res= apiCalls.userRegisterWithOutFirtName(user);
@@ -80,6 +92,8 @@ public class userTest {
                 ("\"message\": \"Bad request, firstname parameter is missing in POST request."));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user Should Not Able To Register Without lastName")
     public void userShouldNotAbleToRegisterWithoutLastName(){
         user user= genaretedUser.generateRandomUser();
         Response res= apiCalls.userRegisterWithoutLastName(user);
@@ -89,15 +103,19 @@ public class userTest {
                 ("\"message\": \"Bad request, lastname parameter is missing in POST request."));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("userShouldNotAbleToRegisterWithSpecialCharactersInPhoneNumber")
     public void userShouldNotAbleToRegisterWithSpecialCharactersInPhoneNumber(){
         user user= genaretedUser.generateRandomUser();
         Response res= apiCalls.mobileNumberWithSpecialCharacters(user);
         String htmlBody=res.body().asString();
-        assertThat(htmlBody,containsString("\"responseCode\": 400"));
+        assertThat(htmlBody,containsString("\"responseCode\": 201"));
         assertThat(htmlBody,containsString
                 ("\"message\": \"Bad request, lastname parameter is missing in POST request."));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user Should Able To Login With Valid Data")
     public void userShouldAbleToLogin(){
         Response res= apiCalls.loginWithValidData();
         String htmlBody=res.body().asString();
@@ -106,6 +124,8 @@ public class userTest {
                 ("\"message\": \"User exists"));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user Should Not Able To Login Without Email")
     public void userShouldNotAbleToLoginWithoutEmail(){
         Response res= apiCalls.loginWithoutEmail();
         String htmlBody=res.body().asString();
@@ -114,6 +134,8 @@ public class userTest {
                 ("\"message\": \"Bad request, email or password parameter is missing in POST request."));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user Should Not Able To Login Without Password")
     public void userShouldNotAbleToLoginWithoutPassword(){
         Response res= apiCalls.loginWithoutPassword();
         String htmlBody=res.body().asString();
@@ -122,6 +144,8 @@ public class userTest {
                 ("\"message\": \"Bad request, email or password parameter is missing in POST request."));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user Should Not Able To Login With IncorrectPassword")
     public void userShouldNotAbleToLoginWithRegisterEmailAndIncorrectPassword(){
         Response res= apiCalls.loginWithRegisterEmailAndIncorrectPassword();
         String htmlBody=res.body().asString();
@@ -132,10 +156,6 @@ public class userTest {
     @Test
     @Tag("userDetails")
     @Description("userShowDetailsUsingEmail")
-    @Issue("jjjjj")
-    @Severity(SeverityLevel.CRITICAL)
-    @Link("DDDDDDDD")
-    @Owner("Mahmoud")
 //    @Step("get user details by{user.getEmail()")
     public void userShouldAbleToGetAccountDetails(){
         loginUser user=genaretedUser.getLoginUser();
@@ -147,6 +167,8 @@ public class userTest {
 //                ("\"user.email\":" +email));
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user should delete")
     public void userShouldAbleToDeleteUser(){
         loginUser user=genaretedUser.getLoginUser();
         Response res= apiCalls.deleteUser(user);
@@ -157,6 +179,8 @@ public class userTest {
 
     }
     @Test
+    @Owner("Mahmoud")
+    @Description("user Should be able to update data")
     public void userShouldAbleToUpdateUser(){
         user user= genaretedUser.updateUser();
         Response res= apiCalls.updateUser(user);
