@@ -28,6 +28,14 @@
                     </argLine>
                     <parallel>methods</parallel>
                     <threadCount>10</threadCount>
+                    
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.testng.AllureTestNg</value>
+                        </property>
+                    </properties>
+                    
                 </configuration>
             </plugin>
         </plugins>
@@ -69,6 +77,13 @@
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <version>2.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-restassured</artifactId>
+            <version>${allure.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
