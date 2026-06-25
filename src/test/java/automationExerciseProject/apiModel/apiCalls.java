@@ -278,7 +278,7 @@ public class apiCalls {
         loginUser user = genaretedUser.getLoginUser();
         return given()
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
-                .formParam(user.getEmail())
+                .formParam("email",user.getEmail())
                 .when().
                 post(urls.login)
                 .then()
@@ -289,8 +289,8 @@ public class apiCalls {
         loginUser user = genaretedUser.getLoginUser();
         return given()
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
-                .formParam(user.getEmail())
-                .formParam("45df5433@ddf45")
+               .formParam("email", user.getEmail())
+                .formParam("password", "45df5433@ddf45")
                 .when().
                 post(urls.login)
                 .then()
