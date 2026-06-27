@@ -326,14 +326,36 @@ public class apiCalls {
                 .log().all().extract().response();
     }
 
-    // 🎯 تم إكمال الميثود المقطوعة وقفل الأقواس بشكل صحيح هنا
+    // 🎯 تم تعديل مسار الديليت مباشرة كـ String لضمان نجاح الـ Build
     public static Response deleteUser(loginUser user) {
         return given()
                 .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
                 .formParam("email", user.getEmail())
                 .when().
-                delete(urls.deleteAccount) // أو الاسم الصح عندك في الـ URLs لعمل الـ Delete
+                delete("/api/deleteAccount") 
+                .then()
+                .log().all().extract().response();
+    }
+
+    // 🎯 تم إضافة ميثود الـ Update الناقصة التي يستدعيها كلاس الـ Test
+    public static Response updateUser(user user) {
+        return given()
+                .filter(new AllureRestAssured())
+                .baseUri(urls.baseUrl).contentType("application/x-www-form-urlencoded")
+                .formParam("name", user.getName())
+                .formParam("email", user.getEmail())
+                .formParam("password", user.getPassword())
+                .formParam("firstname", user.getFirstname())
+                .formParam("lastname", user.getLastname())
+                .formParam("address1", user.getAddress1())
+                .formParam("country", user.getCountry())
+                .formParam("zipcode", user.getZipcode())
+                .formParam("state", user.getState())
+                .formParam("city", user.getCity())
+                .formParam("mobile_number", user.getMobileNumber())
+                .when().
+                put("/api/updateAccount") 
                 .then()
                 .log().all().extract().response();
     }
