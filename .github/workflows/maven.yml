@@ -53,4 +53,21 @@ jobs:
           mkdir -p gh-pages
 
       - name: Generate Allure Report
-        if:
+        if: always()
+        run: |
+          rm -rf allure-report
+          cp -r gh-pages/history target/allure-results/history || true
+          allure generate target/allure-results --clean -o allure-report
+          ls -la allure-report
+
+      - name: Copy history for next run
+        if: always()
+        run: |
+          cp -r allure-report/history gh-pages/history || true
+
+      - name: Deploy Allure Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-report
