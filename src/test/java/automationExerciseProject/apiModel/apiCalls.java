@@ -8,7 +8,7 @@ import automationExerciseProject.models.loginUser;
 import automationExerciseProject.models.user;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.qameta.allure.restassured.AllureRestAssured; // تم إضافة الامبورت الخاص بالـ Allure
+import io.qameta.allure.restassured.AllureRestAssured;
 
 import static io.restassured.RestAssured.given;
 
@@ -16,7 +16,7 @@ public class apiCalls {
     
     public static Response getAllProducts() {
         return given()
-                .filter(new AllureRestAssured()) // تفعيل لقط تفاصيل الـ Execution
+                .filter(new AllureRestAssured()) 
                 .baseUri(urls.baseUrl)
                 .contentType(ContentType.JSON)
                 .when().
@@ -326,8 +326,15 @@ public class apiCalls {
                 .log().all().extract().response();
     }
 
+    // 🎯 تم إكمال الميثود المقطوعة وقفل الأقواس بشكل صحيح هنا
     public static Response deleteUser(loginUser user) {
         return given()
                 .filter(new AllureRestAssured())
                 .baseUri(urls.baseUrl).contentType(ContentType.URLENC)
-                .formParam("email", user
+                .formParam("email", user.getEmail())
+                .when().
+                delete(urls.deleteAccount) // أو الاسم الصح عندك في الـ URLs لعمل الـ Delete
+                .then()
+                .log().all().extract().response();
+    }
+}
