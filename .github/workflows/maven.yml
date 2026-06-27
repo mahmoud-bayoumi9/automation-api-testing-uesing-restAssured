@@ -24,12 +24,12 @@ jobs:
           distribution: 'oracle'
           cache: maven
 
-      # تشغيل التيستات (حتى لو فشلت، الـ Pipeline هيكمل للخطوة اللي بعدها)
+      # تشغيل التيستات
       - name: Run Rest Assured Tests
         run: mvn clean test
         continue-on-error: true
 
-      # 🎯 جلب التاريخ القديم للمسار الموحد الصحيح (allure-history)
+      # جلب التاريخ القديم للمسار الموحد
       - name: Get Allure history
         uses: actions/checkout@v4
         if: always()
@@ -38,16 +38,16 @@ jobs:
           ref: gh-pages
           path: allure-history
 
-      # 🔥 توليد التقرير ودمج الـ History أوتوماتيك من الفولدر الصح
+      # 🎯 التعديل السحري: خليه يدور على الفولدر في المشروع كله مش جوه target بس
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
         if: always()
         with:
-          allure_results: target/allure-results
+          allure_results: "**/allure-results"
           allure_history: allure-history
           keep_reports: 20
 
-      # 🚀 رفع التقرير النهائي على GitHub Pages من الفولدر المدمج
+      # رفع التقرير النهائي
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: always()
