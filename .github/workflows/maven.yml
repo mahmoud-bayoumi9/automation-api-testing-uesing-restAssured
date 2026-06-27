@@ -69,7 +69,15 @@ jobs:
         if: always()
         run: |
           cp -r allure-report/history gh-pages/history || true
-
+      - name: Debug - Check allure-results content
+        if: always()
+        run: |
+          echo "=== target folder ==="
+          ls -la target/ || echo "target NOT FOUND"
+          echo "=== allure-results ==="
+          ls -la target/allure-results/ || echo "allure-results NOT FOUND or EMPTY"
+          echo "=== surefire-reports ==="
+          ls -la target/surefire-reports/ || echo "surefire-reports NOT FOUND"
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: always()
