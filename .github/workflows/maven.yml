@@ -29,7 +29,6 @@ jobs:
         run: mvn clean test -U
         continue-on-error: true
 
-      # ✅ بيعمل gh-pages أوتوماتيك لو مش موجود
       - name: Create gh-pages branch if not exists
         if: always()
         run: |
@@ -42,16 +41,16 @@ jobs:
             git add index.html
             git commit -m "Init gh-pages"
             git push origin gh-pages
-            git checkout main || git checkout master
+            git checkout ${{ github.ref_name }}
           fi
 
+      # ✅ بدل actions/checkout بنعمل git clone يدوي
       - name: Get Allure history
-        uses: actions/checkout@v4
         if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
+        run: |
+          git clone --single-branch --branch gh-pages \
+            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git \
+            gh-pages || mkdir -p gh-pages
 
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
