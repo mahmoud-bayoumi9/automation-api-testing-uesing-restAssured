@@ -210,7 +210,7 @@ import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnviro
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 @Listeners({AllureListeners.class})
-public class userTest {
+public  class userTest {
     @AfterSuite
     void setAllureEnvironment() {
         allureEnvironmentWriter(
