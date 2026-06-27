@@ -1,4 +1,5 @@
 name: API Automation CI/CD Pipeline
+
 on:
   push:
     branches: [ "main", "master" ]
@@ -24,33 +25,29 @@ jobs:
           distribution: 'oracle'
           cache: maven
 
-      # 🎯 تشغيل التيستات مع إجبار جيت هاب على تحديث وتنزيل الـ Dependencies النضيفة
       - name: Run Rest Assured Tests
         run: mvn clean test -U
         continue-on-error: true
 
-      # جلب التاريخ القديم للمسار الموحد
       - name: Get Allure history
         uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
           ref: gh-pages
-          path: allure-history
+          path: gh-pages
 
-      # توليد التقرير
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
         if: always()
         with:
-          allure_results: "**/allure-results"
-          allure_history: allure-history
+          allure_results: target/allure-results   # ✅ المسار الصح
+          allure_history: gh-pages                # ✅ نفس اسم الـ path فوق
           keep_reports: 20
 
-      # رفع التقرير النهائي
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-history
+          publish_dir: allure-history             # ✅ ده اللي بيتولد من الـ action فوق
