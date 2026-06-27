@@ -24,9 +24,9 @@ jobs:
           distribution: 'oracle'
           cache: maven
 
-      # تشغيل التيستات
+      # 🎯 تشغيل التيستات مع إجبار جيت هاب على تحديث وتنزيل الـ Dependencies النضيفة
       - name: Run Rest Assured Tests
-        run: mvn clean test
+        run: mvn clean test -U
         continue-on-error: true
 
       # جلب التاريخ القديم للمسار الموحد
@@ -38,7 +38,7 @@ jobs:
           ref: gh-pages
           path: allure-history
 
-      # 🎯 التعديل السحري: خليه يدور على الفولدر في المشروع كله مش جوه target بس
+      # توليد التقرير
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
         if: always()
