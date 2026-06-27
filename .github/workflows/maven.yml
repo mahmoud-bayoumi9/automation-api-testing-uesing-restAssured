@@ -5,8 +5,10 @@ on:
   pull_request:
     branches: [ "main", "master" ]
   workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
