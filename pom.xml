@@ -54,9 +54,14 @@
                     </argLine>
                     <parallel>methods</parallel>
                     <threadCount>10</threadCount>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
+                    
+                    <includes>
+                        <include>**/userTest.java</include>
+                        <include>**/UserTest.java</include>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                    
                     <properties>
                         <property>
                             <name>listener</name>
