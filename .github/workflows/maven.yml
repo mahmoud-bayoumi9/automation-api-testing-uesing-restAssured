@@ -29,22 +29,6 @@ jobs:
         run: mvn clean test -U
         continue-on-error: true
 
-      - name: Create gh-pages branch if not exists
-        if: always()
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          if ! git ls-remote --heads origin gh-pages | grep -q gh-pages; then
-            git checkout --orphan gh-pages
-            git rm -rf .
-            echo "Allure Reports" > index.html
-            git add index.html
-            git commit -m "Init gh-pages"
-            git push origin gh-pages
-            git checkout ${{ github.ref_name }}
-          fi
-
-      # ✅ بدل actions/checkout بنعمل git clone يدوي
       - name: Get Allure history
         if: always()
         run: |
@@ -55,10 +39,22 @@ jobs:
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
         if: always()
+        id: allure-report
         with:
           allure_results: target/allure-results
           allure_history: gh-pages
           keep_reports: 20
+
+      # ✅ شوف المجلدات اللي اتولدت
+      - name: Debug - List generated folders
+        if: always()
+        run: |
+          echo "=== Current directory ==="
+          ls -la
+          echo "=== allure-history folder ==="
+          ls -la allure-history || echo "NOT FOUND"
+          echo "=== gh-pages folder ==="
+          ls -la gh-pages || echo "NOT FOUND"
 
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
