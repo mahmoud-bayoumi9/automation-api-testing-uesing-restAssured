@@ -8,7 +8,7 @@
 
     <test name="API Tests">
         <classes>
-            <class name="automationExerciseProject.testCases.UserTest"/>
+            <class name="automationExerciseProject.testCases.userTest"/>
         </classes>
     </test>
 </suite>
