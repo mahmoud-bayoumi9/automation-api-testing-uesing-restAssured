@@ -29,16 +29,16 @@ jobs:
         run: mvn clean test
         continue-on-error: true
 
-      # جلب التاريخ القديم للتقارير
+      # 🎯 جلب التاريخ القديم للمسار الموحد الصحيح (allure-history)
       - name: Get Allure history
         uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
           ref: gh-pages
-          path: gh-pages
+          path: allure-history
 
-      # توليد التقرير من المسار الصحيح
+      # 🔥 توليد التقرير ودمج الـ History أوتوماتيك من الفولدر الصح
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
         if: always()
@@ -47,7 +47,7 @@ jobs:
           allure_history: allure-history
           keep_reports: 20
 
-      # رفع التقرير على جيت هاب بيجز
+      # 🚀 رفع التقرير النهائي على GitHub Pages من الفولدر المدمج
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: always()
