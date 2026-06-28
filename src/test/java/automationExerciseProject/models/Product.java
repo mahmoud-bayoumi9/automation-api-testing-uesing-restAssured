@@ -5,11 +5,8 @@ public class Product {
     private String name;
     private String price;
     private String brand;
-    private Category category; // متداخل
-
-    // Constructor فاضي مهم جداً للـ Deserialization
+    private Category category;
     public Product() {}
-
     public Product(int id, String name, String price, String brand, Category category) {
         this.id = id;
         this.name = name;
@@ -17,8 +14,6 @@ public class Product {
         this.brand = brand;
         this.category = category;
     }
-
-    // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
