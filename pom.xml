@@ -23,7 +23,6 @@
         <argLine>
             -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
         </argLine>
-        <!-- ✅ ضيف السطرين دول -->
         <systemPropertyVariables>
             <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
         </systemPropertyVariables>
@@ -54,7 +53,6 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ allure-maven plugin -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
