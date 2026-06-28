@@ -4,14 +4,10 @@ public class user {
     private String name;
     private String email;
     private String password;
-    private String title; // Mr, Mrs, Miss
-
-    // تاريخ الميلاد
+    private String title; 
     private String birthDate;
     private String birthMonth;
     private String birthYear;
-
-    // بيانات الاسم والعنوان
     private String firstname;
     private String lastname;
     private String company;
