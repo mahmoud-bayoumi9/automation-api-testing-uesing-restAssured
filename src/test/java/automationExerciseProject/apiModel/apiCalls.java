@@ -325,8 +325,6 @@ public class apiCalls {
                 .then()
                 .log().all().extract().response();
     }
-
-    // 🎯 تم تعديل مسار الديليت مباشرة كـ String لضمان نجاح الـ Build
     public static Response deleteUser(loginUser user) {
         return given()
                 .filter(new AllureRestAssured())
@@ -337,8 +335,6 @@ public class apiCalls {
                 .then()
                 .log().all().extract().response();
     }
-
-    // 🎯 تم إضافة ميثود الـ Update الناقصة التي يستدعيها كلاس الـ Test
     public static Response updateUser(user user) {
         return given()
                 .filter(new AllureRestAssured())
